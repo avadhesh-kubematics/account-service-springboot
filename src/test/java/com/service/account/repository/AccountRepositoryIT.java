@@ -9,6 +9,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Optional;
+
 import static com.service.account.helper.TestData.getRequestAccountDAO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -28,7 +30,17 @@ public class AccountRepositoryIT {
         AccountDAO storedAccountDAO = accountRepository.save(accountDAO);
 
         assertEquals(1000, storedAccountDAO.getCustomerId());
-        assertEquals(1111, storedAccountDAO.getAccountNumber());
+        assertEquals(1112, storedAccountDAO.getAccountNumber());
         assertNotNull(storedAccountDAO.getCreatedAt());
+    }
+
+    @Test
+    public void save_whenAccountNumberIsPassed_shouldReturnAccountDetails() {
+        AccountDAO storedAccountDAO = accountRepository.save(accountDAO);
+
+        Optional<AccountDAO> accountDAOOptional = accountRepository.findById(accountDAO.getAccountNumber());
+        AccountDAO actualAccountDAO = accountDAOOptional.get();
+
+        assertEquals(accountDAO, actualAccountDAO);
     }
 }

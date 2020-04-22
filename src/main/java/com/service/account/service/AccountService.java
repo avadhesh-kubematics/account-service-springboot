@@ -1,14 +1,19 @@
 package com.service.account.service;
 
 import com.service.account.connector.CustomerConnector;
+import com.service.account.model.AccountCustomerVO;
 import com.service.account.model.AccountDAO;
 import com.service.account.model.AccountVO;
 import com.service.account.model.Customer;
 import com.service.account.repository.AccountRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
-import static com.service.account.mapper.AccountsDTOToAccountsVOMapper.MAPPER;
+import java.util.Optional;
+
+import static com.service.account.mapper.AccountsDTOMapper.MAPPER;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Slf4j
 @Service
@@ -34,10 +39,24 @@ public class AccountService {
         AccountDAO storedAccounts = this.accountRepository.save(accountDAO);
         log.debug("AccountService : create : Account created successfully and details are : {}", accountDAO);
 
-        AccountVO accountVO = MAPPER.map(storedAccounts, customer);
+        AccountVO accountVO = MAPPER.mapToAccountVO(storedAccounts, customer);
 
         log.debug("AccountService : create : Sending back the Account and customer details :  {}", accountVO);
         log.info("AccountService : create : End..");
         return accountVO;
+    }
+
+    public AccountCustomerVO getAccountDetails(int accountNumber) {
+        log.info("AccountService : getAccountDetails : Init..");
+        log.debug("AccountService : getAccountDetails : Find accountNumber : {}", accountNumber);
+        Optional<AccountDAO> accountDAOOptional = accountRepository.findById(accountNumber);
+
+        accountDAOOptional.orElseThrow(() -> new HttpClientErrorException(NOT_FOUND, "Account not found"));
+        AccountDAO accountDAO = accountDAOOptional.get();
+
+        log.debug("AccountService : getAccountDetails : For accountNumber : {} Details are : {}"
+                , accountNumber, accountDAO);
+        log.info("AccountService : getAccountDetails : End..");
+        return MAPPER.mapToAccountCustomerVO(accountDAO);
     }
 }

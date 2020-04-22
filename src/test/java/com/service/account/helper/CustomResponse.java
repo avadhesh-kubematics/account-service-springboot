@@ -2,7 +2,7 @@ package com.service.account.helper;
 
 import java.util.Objects;
 
-public class CustomResponseEntity {
+public class CustomResponse {
     private int statusCode;
     private String responseMessage;
 
@@ -25,8 +25,8 @@ public class CustomResponseEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof CustomResponseEntity)) return false;
-        CustomResponseEntity that = (CustomResponseEntity) o;
+        if (!(o instanceof CustomResponse)) return false;
+        CustomResponse that = (CustomResponse) o;
         return getStatusCode() == that.getStatusCode() &&
                 Objects.equals(getResponseMessage(), that.getResponseMessage());
     }

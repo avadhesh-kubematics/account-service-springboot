@@ -1,5 +1,6 @@
 package com.service.account.helper;
 
+import com.service.account.model.AccountCustomerVO;
 import com.service.account.model.AccountDAO;
 import com.service.account.model.AccountVO;
 import com.service.account.model.Customer;
@@ -11,6 +12,7 @@ import static com.service.account.helper.TestUtils.convertJsonToObject;
 public class TestData {
 
     public static final int CUSTOMER_ID = 1000;
+    public static final int ACCOUNT_NUMBER = 1111;
 
     public static Customer getCustomerData() {
         Customer customer = new Customer();
@@ -41,6 +43,13 @@ public class TestData {
         accountDAO.setAccountNumber(1111);
         accountDAO.setCreatedAt(new Date());
         return accountDAO;
+    }
+
+    public static AccountCustomerVO getAccountCustomerVO() {
+        AccountCustomerVO accountCustomerVO = new AccountCustomerVO();
+        accountCustomerVO.setCustomerId(1000);
+        accountCustomerVO.setAccountNumber(1111);
+        return accountCustomerVO;
     }
 
     public static Customer getCustomerResponse() {

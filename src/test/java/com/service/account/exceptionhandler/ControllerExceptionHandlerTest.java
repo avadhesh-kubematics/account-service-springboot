@@ -42,11 +42,11 @@ class ControllerExceptionHandlerTest {
     @Test
     void handleNumberFormatException_shouldReturn400AndBadRequestErrorMessage_whenANonIntNumberIsPassed() {
         NumberFormatException numberFormatException =
-                new NumberFormatException("Bad Request, invalid customer id");
+                new NumberFormatException("Bad Request, invalid input");
 
         ResponseEntity responseEntity = controllerExceptionHandler.handleNumberFormatException(numberFormatException);
 
         assertEquals(400, responseEntity.getStatusCodeValue());
-        assertEquals("Bad Request, invalid customer id", responseEntity.getBody());
+        assertEquals("Bad Request, invalid input", responseEntity.getBody());
     }
 }

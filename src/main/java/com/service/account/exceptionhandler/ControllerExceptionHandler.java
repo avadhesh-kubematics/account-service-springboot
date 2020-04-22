@@ -26,6 +26,6 @@ public class ControllerExceptionHandler {
     public ResponseEntity handleNumberFormatException(NumberFormatException numberFormatException) {
         log.debug("ControllerExceptionHandler : handleNumberFormatException : Bad Request, invalid customer id : {}",
                 numberFormatException);
-        return new ResponseEntity("Bad Request, invalid customer id", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity("Bad Request, invalid input", HttpStatus.BAD_REQUEST);
     }
 }

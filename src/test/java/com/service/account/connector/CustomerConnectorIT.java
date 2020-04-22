@@ -34,11 +34,11 @@ class CustomerConnectorIT implements WireMockService {
     void getCustomer_whenAValidCustomerIdIsPassed_shouldReturnTheCustomerData() {
         CustomerConnector customerConnector = new CustomerConnector(getCustomerEndpoint, restTemplate);
 
-        Customer customer = customerConnector.getCustomer(1001);
+        Customer customer = customerConnector.getCustomer(1000);
 
         assertEquals("Robo", customer.getFirstName());
         assertEquals("Cop", customer.getSurname());
-        assertEquals(1001, customer.getId());
+        assertEquals(1000, customer.getId());
         stopService();
     }
 }

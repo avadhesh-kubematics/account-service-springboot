@@ -20,7 +20,7 @@ public interface WireMockService {
 
     default void stubCustomerService() {
         configureFor("localhost", 8005);
-        givenThat(get(urlPathMatching("/customer/search/1001"))
+        givenThat(get(urlPathMatching("/customer/search/1000"))
                 .willReturn(aResponse()
                         .withStatus(HttpStatus.OK.value())
                         .withBodyFile("customer-service-response.json")
@@ -28,7 +28,7 @@ public interface WireMockService {
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Customer> response = restTemplate.getForEntity
-                ("http://localhost:8005/customer/search/{customerId}", Customer.class, 1001);
+                ("http://localhost:8005/customer/search/{customerId}", Customer.class, 1000);
         assertEquals(200, response.getStatusCodeValue());
     }
 

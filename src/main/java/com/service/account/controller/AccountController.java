@@ -1,13 +1,11 @@
 package com.service.account.controller;
 
+import com.service.account.model.AccountCustomerVO;
 import com.service.account.model.AccountVO;
 import com.service.account.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -28,5 +26,16 @@ public class AccountController {
 
         log.info("AccountController : create : End..");
         return accountVO;
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/search/{accountNumber}")
+    public AccountCustomerVO getAccountDetails(@PathVariable int accountNumber) {
+        log.info("AccountController : getAccountDetails : Init..");
+
+        AccountCustomerVO accountDetails = this.accountService.getAccountDetails(accountNumber);
+
+        log.info("AccountController : getAccountDetails : End..");
+        return accountDetails;
     }
 }

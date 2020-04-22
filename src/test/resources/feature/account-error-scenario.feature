@@ -8,4 +8,9 @@ Feature: Error Scenarios
   Scenario: When a long number is passed
     Given Customer provides a invalid customer id "100000000000000"
     When The customer makes a call to create an account
-    Then The API should return error "Bad Request, invalid customer id" and status code 400
+    Then The API should return error "Bad Request, invalid input" and status code 400
+
+  Scenario: When a long number is passed
+    Given Customer provides a invalid account number "123321400000000"
+    When The customer makes a call to get account details
+    Then The API should return error "Bad Request, invalid input" and status code 400
