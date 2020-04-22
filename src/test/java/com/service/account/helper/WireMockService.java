@@ -32,6 +32,15 @@ public interface WireMockService {
         assertEquals(200, response.getStatusCodeValue());
     }
 
+    default void stubCustomerServiceNotFound() {
+        configureFor("localhost", 8005);
+        givenThat(get(urlPathMatching("/customer/search/2000"))
+                .willReturn(aResponse()
+                        .withStatus(HttpStatus.NOT_FOUND.value())
+                        .withBody("Customer not found")
+                        .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)));
+    }
+
     default void startService() {
         WIRE_MOCK_RULE.start();
     }

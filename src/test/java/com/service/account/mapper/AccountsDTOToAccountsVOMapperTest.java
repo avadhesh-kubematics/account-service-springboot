@@ -4,7 +4,6 @@ import com.service.account.helper.TestData;
 import com.service.account.model.AccountDAO;
 import com.service.account.model.AccountVO;
 import com.service.account.model.Customer;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
