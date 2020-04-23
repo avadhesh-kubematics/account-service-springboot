@@ -24,19 +24,7 @@ class ControllerExceptionHandlerTest {
         ResponseEntity responseEntity = controllerExceptionHandler.handleHttpClientErrorException(httpClientErrorException);
 
         assertEquals(404, responseEntity.getStatusCodeValue());
-        assertEquals("Account cannot be created, Customer not found", responseEntity.getBody());
-    }
-
-    @Test
-    void handleHttpClientErrorException_shouldReturn500AndInternalServerErrorMessage_whenNoOtherScenarioMatches() {
-        HttpClientErrorException httpClientErrorException =
-                new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error");
-
-        ResponseEntity responseEntity = controllerExceptionHandler.
-                handleHttpClientErrorException(httpClientErrorException);
-
-        assertEquals(500, responseEntity.getStatusCodeValue());
-        assertEquals("Internal Server Error", responseEntity.getBody());
+        assertEquals("Customer not found", responseEntity.getBody());
     }
 
     @Test
@@ -48,5 +36,16 @@ class ControllerExceptionHandlerTest {
 
         assertEquals(400, responseEntity.getStatusCodeValue());
         assertEquals("Bad Request, invalid input", responseEntity.getBody());
+    }
+
+    @Test
+    void handleHttpClientErrorException_shouldReturn404AndAccountErrorMessage_whenHttpClientErrorExceptionWith404Occurs() {
+        HttpClientErrorException httpClientErrorException =
+                new HttpClientErrorException(HttpStatus.NOT_FOUND, "Account Number not found");
+
+        ResponseEntity responseEntity = controllerExceptionHandler.handleHttpClientErrorException(httpClientErrorException);
+
+        assertEquals(404, responseEntity.getStatusCodeValue());
+        assertEquals("Account Number not found", responseEntity.getBody());
     }
 }

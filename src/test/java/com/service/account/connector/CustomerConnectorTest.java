@@ -3,12 +3,15 @@ package com.service.account.connector;
 import com.service.account.model.Customer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import static com.service.account.helper.TestData.CUSTOMER_ID;
 import static com.service.account.helper.TestData.getCustomerData;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 class CustomerConnectorTest {
@@ -43,5 +46,29 @@ class CustomerConnectorTest {
         Customer actualCustomerData = customerConnector.getCustomer(CUSTOMER_ID);
 
         assertEquals(getCustomerData(), actualCustomerData);
+    }
+
+    @Test
+    void getCustomer_whenANonExistingCustomerIsPassed_shouldThrowError404() {
+        when(mockRestTemplate.getForEntity(GET_CUSTOMER_ENDPOINT, Customer.class, CUSTOMER_ID))
+                .thenThrow(new HttpClientErrorException(HttpStatus.NOT_FOUND));
+
+        HttpClientErrorException exception = assertThrows(HttpClientErrorException.class, () -> {
+            customerConnector.getCustomer(CUSTOMER_ID);
+        });
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+        assertEquals("Customer not found", exception.getStatusText());
+    }
+
+    @Test
+    void getCustomer_whenCustomerServiceIsNotAvailable_shouldThrowInternalServerError() {
+        when(mockRestTemplate.getForEntity(GET_CUSTOMER_ENDPOINT, Customer.class, CUSTOMER_ID))
+                .thenThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR));
+
+        HttpClientErrorException exception = assertThrows(HttpClientErrorException.class, () -> {
+            customerConnector.getCustomer(CUSTOMER_ID);
+        });
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, exception.getStatusCode());
+        assertEquals("Internal Server Error", exception.getStatusText());
     }
 }

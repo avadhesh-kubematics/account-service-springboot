@@ -6,6 +6,6 @@ Feature: Create and Get a Account
     Then The API should return the account and customer details and status 201
 
   Scenario: When a customer passes an valid account number
-    Given Customer provides a valid account number "1111"
+    Given Customer provides a account number "1111"
     When The customer makes a call to get account details
     Then The API should return the account details and status 200

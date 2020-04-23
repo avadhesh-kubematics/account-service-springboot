@@ -51,7 +51,7 @@ public class AccountService {
         log.debug("AccountService : getAccountDetails : Find accountNumber : {}", accountNumber);
         Optional<AccountDAO> accountDAOOptional = accountRepository.findById(accountNumber);
 
-        accountDAOOptional.orElseThrow(() -> new HttpClientErrorException(NOT_FOUND, "Account not found"));
+        accountDAOOptional.orElseThrow(() -> new HttpClientErrorException(NOT_FOUND, "Account Number not found"));
         AccountDAO accountDAO = accountDAOOptional.get();
 
         log.debug("AccountService : getAccountDetails : For accountNumber : {} Details are : {}"

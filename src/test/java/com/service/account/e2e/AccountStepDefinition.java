@@ -3,7 +3,6 @@ package com.service.account.e2e;
 import com.service.account.helper.CustomResponse;
 import com.service.account.helper.SpringIntegration;
 import com.service.account.helper.TestContextInterface;
-import com.service.account.helper.TestData;
 import com.service.account.model.AccountCustomerVO;
 import com.service.account.model.AccountVO;
 import io.cucumber.java.en.Given;
@@ -56,8 +55,8 @@ public class AccountStepDefinition extends SpringIntegration implements En, Test
         testContext().reset();
     }
 
-    @Given("Customer provides a valid account number {string}")
-    public void customer_provides_a_valid_account_number(String accountNumber) {
+    @Given("Customer provides a account number {string}")
+    public void customer_provides_a_account_number(String accountNumber) {
         testContext().set("accountNumber", accountNumber);
     }
 

@@ -8,6 +8,7 @@ import com.service.account.model.Customer;
 import com.service.account.repository.AccountRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.Optional;
@@ -70,11 +71,13 @@ class AccountServiceTest {
     }
 
     @Test
-    void getCustomer_whenANonExistingCustomerIsPassed_shouldThrowError404() {
+    void getAccountDetails_whenANonExistingAccountIsPassed_shouldThrowError404() {
         when(mockAccountRepository.findById(ACCOUNT_NUMBER)).thenReturn(java.util.Optional.empty());
 
-        assertThrows(HttpClientErrorException.class, () -> {
+        HttpClientErrorException exception = assertThrows(HttpClientErrorException.class, () -> {
             accountService.getAccountDetails(ACCOUNT_NUMBER);
         });
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+        assertEquals("Account Number not found", exception.getStatusText());
     }
 }
