@@ -1,24 +1,7 @@
 server:
-  port: 9092
+  port: 7092
   servlet:
     contextPath: /account
-
-spring:
-  jpa:
-    database: POSTGRESQL
-    show-sql: true
-    generate-ddl: true
-    hibernate.ddl-auto: create-drop
-    properties:
-      hibernate:
-        jdbc:
-          lob:
-            non_contextual_creation: true
-  datasource:
-    platform: postgres
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: [YOUR_PASSWORD]
 
 customer:
   getEndpoint: http://localhost:8005/customer/search/{customerId}

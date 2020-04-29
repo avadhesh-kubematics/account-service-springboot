@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: 8091
   servlet:
     contextPath: /account
 
@@ -18,7 +18,7 @@ spring:
     platform: postgres
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
-    password: [YOUR_PASSWORD]
+    password: postgres
 
 customer:
-  getEndpoint: http://localhost:8081/customer/search/{customerId}
+  getEndpoint: http://localhost:8090/customer/search/{customerId}
