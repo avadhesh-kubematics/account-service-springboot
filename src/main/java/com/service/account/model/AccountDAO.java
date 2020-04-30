@@ -10,8 +10,7 @@ import java.util.Date;
 @Table(name = "Account")
 public class AccountDAO {
     @Id
-    @SequenceGenerator(name = "account_accountNumber_seq", sequenceName = "account_accountNumber_seq",
-            allocationSize = 1, initialValue = 1111)
+    @SequenceGenerator(name = "account_accountNumber_seq", allocationSize = 1, initialValue = 1111)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_accountNumber_seq")
     private Integer accountNumber;
     private Integer customerId;
